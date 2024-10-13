@@ -70,7 +70,7 @@ public class Playercontroller : MonoBehaviour
 
          if (Input.GetKey(KeyCode.LeftShift) && !_GameManager.IsStaminaRestoring)
         {
-            _GameManager.Spe();
+            _GameManager.SpendStamina();
             _Rigidbody.MovePosition(CalculateSprint());
 
         }

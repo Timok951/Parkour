@@ -15,31 +15,57 @@ public class GameManager : MonoBehaviour
 
         Health = MaxHealth;
     }
-        private IEnumerator StaminaRestore()
-        {
+    private IEnumerator StaminaRestore()
+    {
 
-            IsStaminaRestoring = true;
-            yield return new WaitForSeconds(3f);
-            Stamina = 100;
-            IsStaminaRestoring = false;
+        IsStaminaRestoring = true;
+        yield return new WaitForSeconds(3f);
+        Stamina = 100;
+        IsStaminaRestoring = false;
 
-        }
+    }
 
-        private void StaminaCheck()
-        {
-            Debug.Log("Stamina" + Stamina);
-            if (Stamina <= 0) StartCoroutine(StaminaRestore());
-        }
-        public void SpendStamina()
-        {
-            Stamina = -1;
-        }
+    private void StaminaCheck()
+    {
+        Debug.Log("Stamina" + Stamina);
+        if (Stamina <= 0) StartCoroutine(StaminaRestore());
+    }
+    public void SpendStamina()
+    {
+        Stamina = -1;
+    }
 
-        private void FixedUpdate()
+    private void FixedUpdate()
+    {
+        StaminaCheck();
+    }
+
+    public void Healing(int HealthPointCount)
+    {
+        if (Health + HealthPointCount > MaxHealth)
         {
-            StaminaCheck();
+            Health = MaxHealth;
         }
+        else
+        {
+            Health += HealthPointCount;
+        }
+        Debug.Log("HP " + Health);
 
 
     }
+
+    public void LavaDamage(int HealthPointDamage)
+    {
+        if(Health - HealthPointDamage >= 0)
+        {
+            Health = Health - HealthPointDamage;
+        }
+        else
+        {
+            Health = 0;
+        }
+        Debug.Log("HP" + Health);
+    }
+}
 
